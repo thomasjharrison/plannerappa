@@ -1,0 +1,294 @@
+MDBoxLayout:
+    orientation: "vertical"
+
+    MDToolbar:
+        id: topBar
+        title: ""
+        MDFillRoundFlatButton:
+            md_bg_color: 0, 0.45, 1, 1
+            text: "Board Options"
+            on_press: app.boardEditing()
+            pos_hint: {"y": 0.2}
+
+    ScrollView:
+        id: noteSection
+        do_scroll_x: False
+        do_scroll_y: True
+        bar_width: 10
+        bar_inactive_color: [0.2, 0.4, 1, 1]
+        bar_color: [0.2, 0.4, 1, 1]
+                
+    
+    MDToolbar:
+        id: bottomBar
+        mode: "center"
+        MDFillRoundFlatButton:
+            md_bg_color: 0, 0.45, 1, 1
+            text: "Change Board"
+            on_press: app.changeBoard()
+            pos_hint: {"y": 0.2}
+            
+
+<boardEditingPopup>
+    id: boardEditingPopup
+    title: ""
+    title_font: "Roboto"
+    title_size: 22
+    title_align: "center"
+    size_hint: 0.6, 0.5
+    separator_color: 0, 0, 0, 0
+
+    GridLayout:
+        rows: 3
+        cols: 1
+        Button:
+            text: "Add Note"
+            font_name: 'Roboto'
+            font_size: 22
+            on_press: root.UIcreateNote()
+        Button:
+            text: "Change Title"
+            font_name: 'Roboto'
+            font_size: 22
+            on_press: root.UIchangeBoardTitle()
+        Button:
+            text: "Delete Current Board"
+            font_name: 'Roboto'
+            font_size: 22
+            on_press: root.UIdeleteBoard()
+
+<newNoteInputBox>
+    id: newNoteInputBox
+    title: "Note name:"
+    title_font: "Roboto"
+    title_size: 22
+    title_align: "center"
+    size_hint: 0.6, 0.2
+    separator_color: 0, 0, 0, 0
+    GridLayout:
+        id: popupContent
+        rows: 2
+        cols: 1
+
+<renameBoardInputBox>
+    id: renameBoardInputBox
+    title: "Change title:"
+    title_font: "Roboto"
+    title_size: 22
+    title_align: "center"
+    size_hint: 0.6, 0.2
+    separator_color: 0, 0, 0, 0
+    GridLayout:
+        id: popupContent
+        rows: 2
+        cols: 1
+
+<boardChangingPopup>
+    id: boardChangingPopup
+    title: "Switch to board:"
+    title_font: "Roboto"
+    title_size: 22
+    title_align: "center"
+    size_hint: 0.7, 0.8
+    separator_color: 0, 0, 0, 0
+    ScrollView:
+        id: swapBoardScroll
+        do_scroll_x: False
+        do_scroll_y: True
+        bar_width: 10
+
+<newBoardInputBox>
+    id: newBoardInputBox
+    title: "Board Name:"
+    title_font: "Roboto"
+    title_size: 22
+    title_align: "center"
+    size_hint: 0.6, 0.2
+    separator_color: 0, 0, 0, 0
+    GridLayout:
+        id: popupContent
+        rows: 2
+        cols: 1
+
+<confirmBoardDeletionPopup>
+    id: confirmBoardDeletionPopup
+    title: "Are you sure?"
+    title_font: "Roboto"
+    title_size: 22
+    title_align: "center"
+    size_hint: 0.6, 0.2
+    separator_color: 0, 0, 0, 0
+    Button:
+        text: "Confirm"
+        font_name: 'Roboto'
+        font_size: 22
+        on_press: root.deleteLoadedBoard()
+
+<noteEditingMenu>
+    id: noteEditingMenu
+    title: ""
+    title_font: "Roboto"
+    title_size: 22
+    title_align: "center"
+    size_hint: 0.7, 0.8
+    separator_color: 0, 0, 0, 0
+    ScrollView:
+        id: noteEditingScroll
+        do_scroll_x: False
+        do_scroll_y: True
+        bar_width: 10
+        GridLayout:
+            id: noteEditingScrollLayout
+            rows: 5
+            cols: 1
+            Button:
+                text: "Edit note title"
+                font_size: 18
+                size_hint: 1, None
+                height: 60
+                on_press: root.changeNoteTitlePopup()
+            Button:
+                text: "Edit note content"
+                font_size: 18
+                size_hint: 1, None
+                height: 60
+                on_press: root.displayNoteContentPopup()
+            Button:
+                text: "Edit note deadline"
+                font_size: 18
+                size_hint: 1, None
+                height: 60              
+                on_press: root.changeNoteDeadlinePopup()
+            Button:
+                text: "Remove note deadline"
+                font_size: 18
+                size_hint: 1, None
+                height: 60
+                on_press: root.removeNoteDeadlinePopup()
+            Button:
+                text: "Delete note"
+                font_size: 18
+                size_hint: 1, None
+                height: 60
+                on_press: root.confirmNoteDeletion()
+
+<confirmNoteDeletionPopup>
+    id: confirmNoteDeletionPopup
+    title: "Are you sure?"
+    title_font: "Roboto"
+    title_size: 22
+    title_align: "center"
+    size_hint: 0.6, 0.2
+    separator_color: 0, 0, 0, 0
+    Button:
+        text: "Confirm"
+        font_name: 'Roboto'
+        font_size: 22
+        on_press: root.deleteSelectedNote()
+
+<noteContentPopup>
+    id: noteContentPopup
+    title: "Enter text for note:"
+    title_font: "Roboto"
+    title_size: 22
+    title_align: "center"
+    size_hint: 0.8, 0.5
+    separator_color: 0, 0, 0, 0
+    GridLayout:
+        id: popupContent
+        rows: 2
+        cols: 1
+
+<changeNoteTitlePopup>
+    id: noteContentPopup
+    title: "Enter title for note:"
+    title_font: "Roboto"
+    title_size: 22
+    title_align: "center"
+    size_hint: 0.6, 0.3
+    separator_color: 0, 0, 0, 0
+    GridLayout:
+        id: popupContent
+        rows: 2
+        cols: 1
+
+<changeNoteDeadlinePopup>
+    id: confirmNoteDeletionPopup
+    title: "Add deadline:"
+    title_font: "Roboto"
+    title_size: 22
+    title_align: "center"
+    size_hint: 0.6, 0.4
+    separator_color: 0, 0, 0, 0
+    GridLayout:
+        rows: 7
+        cols: 1
+        Button: 
+            size_hint: 1, None
+            height: 30
+            text: "Date (dd/mm/yy):"
+        GridLayout:
+            rows: 1
+            cols: 3
+            TextInput:
+                size_hint: 0.33, None
+                height: 30
+                id:Day
+            TextInput:
+                size_hint: 0.33, None
+                height: 30
+                id:Month
+            TextInput:
+                size_hint: 0.33, None
+                height: 30
+                id:Year
+        Button: 
+            background_color: 0, 0, 0, 0
+        Button:
+            size_hint: 1, None
+            height: 30
+            text: "Time (24h):"            
+        GridLayout:
+            rows: 1
+            cols: 2
+            TextInput:
+                size_hint: 0.33, None
+                height: 30
+                id:Hour
+            TextInput:
+                size_hint: 0.33, None
+                height: 30
+                id:Minute
+        Button: 
+            background_color: 0, 0, 0, 0
+        Button:
+            size_hint: 1, None
+            height: 60
+            text: "Add deadline"   
+            on_press: root.addDeadline()
+
+<invalidDeadlinePopup>
+    id: noteContentPopup
+    title: "Invalid date/time added"
+    title_font: "Roboto"
+    title_size: 22
+    title_align: "center"
+    size_hint: 0.6, 0.2
+    separator_color: 0, 0, 0, 0
+    Button:
+        text: "Close"
+        on_press: root.closePopup()
+
+<confirmDeadlineRemovalPopup>
+    id: noteContentPopup
+    title: "Confirm deadline removal:"
+    title_font: "Roboto"
+    title_size: 22
+    title_align: "center"
+    size_hint: 0.6, 0.2
+    separator_color: 0, 0, 0, 0
+    Button:
+        text: "Confirm"
+        on_press: root.removeDeadline()
+
+
